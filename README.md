@@ -7,7 +7,7 @@ Our product solves a problem that many college students face- the difficulty of 
 ### What alternatives are available? Who are our competitors?
 Some alternatives available are the built-in Calendar app on most cell phones, Microsoft Outlook, Google Calendar, ToDo, and the built in Canvas Calendar. 
 ### What is the novel in our approach?
-Our product is different than the others that are already available because our product is the only one that has calendar, planner, AND todo list functionality. The reason it is so relevant for college students is due to our product getting information directly from Canvas.
+Our product is different than the others that are already available because it not only includes a calendar, planner, and to-do list functionality, but also automatically generates daily schedules, rest times, and suggested food and study locations near the University of Cincinnati. The reason it is so relevant for college students is because our product gets class information and assignments directly from Canvas. Along with this, our approach is focused on University of Cincinnati students. 
 ### Software Architecture / Language Plans?
 
 ### Challenges and Risks?
