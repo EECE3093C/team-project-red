@@ -56,4 +56,4 @@ for event in calendar_events:
         end_time = event["end_at"]
         print(f"{title}: {start_time} to {end_time}")
 ```
-## Go to this [link](https://github.com/ubc/getting-started-with-the-canvas-api-with-python)
+## Go to this [link](https://github.com/ubc/getting-started-with-the-canvas-api-with-python) for Python examples
