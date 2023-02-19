@@ -7,7 +7,7 @@
 class Tasks {
     protected:
 
-    //* Member Variables for the Class *//
+    ///* Member Variables for the Class *///
         
         // String for extra things to do
         std::string m_thingsToDo;
