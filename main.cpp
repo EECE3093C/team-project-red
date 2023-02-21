@@ -2,7 +2,13 @@
 using namespace std;
 
 int main() {
-    //Welcome message
+    //Welcome message and options
+    cout << "Welcome to [Software Name]!" << endl;
+    cout << "Main menu:" << endl;
+    cout << "C - Authenticate with Canvas" << endl;
+    cout << "T - Manually add Task" << endl;
+    cout << "E - Manually add Event" << endl;
+    cout << "G - Generate my weekly schedule!" << endl;
 
     //Log-in to Canvas
 
