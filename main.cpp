@@ -2,6 +2,8 @@
 using namespace std;
 
 int main() {
+    //Declare data structures to hold events and tasks
+
     //Welcome message and options
     cout << "Welcome to [Software Name]!" << endl;
     cout << "Main menu:" << endl;
@@ -9,22 +11,33 @@ int main() {
     cout << "T - Manually add Task" << endl;
     cout << "E - Manually add Event" << endl;
     cout << "G - Generate my weekly schedule!" << endl;
+    cout << "Q - Quit";
 
-    //Log-in to Canvas
+    //Menu selection
+    char choice;
+    cin >> choice;
+    while(choice != 'c' && choice != 't' && choice != 'e' && choice != 'g' && choice != 'q') {
+        cout << "Invalid menu option. Please enter a menu option from the list" << endl;
+    }
 
-    //Fetch Canvas events and tasks
+    while(choice != 'q') {
+        //Log-in to Canvas
 
-    //Manually add tasks
+        //Fetch Canvas events and tasks
 
-    //Manually add events
+        //Manually add tasks
 
-    //Miscellaneous schedule constraints
+        //Manually add events
 
-    //Sort tasks
+        //Miscellaneous schedule constraints
 
-    //Partition into days
+        //Sort tasks
 
-    //Display tasks
+        //Partition into days
 
+        //Display tasks
+    }
+
+    cout << "Quitting [Software Name]" << endl;
     return 0;
 }
