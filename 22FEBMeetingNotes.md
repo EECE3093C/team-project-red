@@ -8,5 +8,5 @@ Biggest Task Overall: starting with implementing the things to do list
   - Should just be in a markdown file on Git
   - Will be continuously added to throughout the semester once our code changes 
   - Can reference notes from class and the internet on how to create a UML diagram 
- Plan on meeting again next Wednesday morning to present work 
- Do not push anything to the main branch until the meeting and we will all review changes together to avoid merge conflicts as much as possible
+ - Plan on meeting again next Wednesday morning to present work 
+ - Do not push anything to the main branch until the meeting and we will all review changes together to avoid merge conflicts as much as possible
