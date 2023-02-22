@@ -3,7 +3,7 @@ Biggest Task Overall: starting with implementing the things to do list
 - Created a separate repo for API work 
 - Chloe- Working on the authentification aspects of API/ implementation plan 
 - Izzy- Working on the data abstraction (i.e calendar, assignments, due dates)/ implementation plan 
-Grant- UML diagrams
+- Grant- UML diagrams
   - Look at madis class and create a diagram based on her current code set up 
   - Should just be in a markdown file on Git
   - Will be continuously added to throughout the semester once our code changes 
