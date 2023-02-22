@@ -1,12 +1,12 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include "Tasks.hxx"
+#include "Task.hxx"
 
 
 int main()
 {
-    Tasks task;
+    // Tasks task;
     std::string userInput;
     std::string userItem;
     std::string userPriority;
@@ -27,12 +27,12 @@ int main()
         std::cin >> userPriority;
         std::cout << "Insert the due date of the task in the format DD-MM-YYYY \n";
         std::cin >> userDate;
-        task.addTaskItem(userItem, userPriority, userDate);
+        // task.addTaskItem(userItem, userPriority, userDate);
         std::cout << "Have more items to add? If so, type Y. If you're done, type N \n";
         std::cin >> userInput;       
     }
 
-    task.thingsToDoList();
+    // task.thingsToDoList();
 
     return 0;
 }

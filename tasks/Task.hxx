@@ -9,7 +9,7 @@
             // need to discuss how we want to evaluate hierarchy between priority and date
     // 2. Method to output things to do List in a text file along with calendar, etc.
     // 3. Need to incorporate CANVAS tasks as well, but that is seperate from here
-class Tasks {
+class Task {
     protected:
 
     ///* Member Variables for the Class *///
@@ -29,13 +29,21 @@ class Tasks {
         };
         std::string m_priority;
 
+        // Combined overall Priority based on 
+        int m_overallPriority;
+
         // Vector of Items in ToDo List
         std::vector<std::string> toDoList;
-
-        // Filler variable for Canvas Assignments - need to look into API
-        std::string canvasAssignment;
     
     public:
+
+        // Task Constructor
+        Task(std::string thingsToDo, std::string dueDate, std::string priority)
+        {
+            m_thingsToDo = thingsToDo;
+            m_dueDate = dueDate;
+            m_priority = priority;
+        }
 
         // Method to return things to do item
         std::string thingsToDoItem()
@@ -43,22 +51,5 @@ class Tasks {
             return m_thingsToDo;        
         }
 
-        // Method to add items to vector of things to do tasks
-        void addTaskItem (std::string& item, std::string& priority, std::string& date)
-        {
-            m_thingsToDo = item;
-            m_priority = priority;
-            m_dueDate = date;
-            toDoList.insert(toDoList.end(), {m_thingsToDo, m_priority, m_dueDate});
-        }
-
-        // Method to Display Things To Do List
-        std::vector<std::string> thingsToDoList()
-        {
-            for(int i=0; i < toDoList.size(); i++)
-            {
-                std::cout << toDoList.at(i) << ' ';
-            }           
-            return toDoList;
-        }
+        // ADD OVERALL PRIORITY FUNCTION
 };
