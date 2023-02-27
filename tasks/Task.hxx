@@ -36,8 +36,14 @@ class Task {
         std::vector<std::string> toDoList;
     
     public:
+        //Default Constructor
+        Task() {
+            m_thingsToDo = "";
+            m_dueDate = "01-01-1970";
+            m_priority = "low";
+        }
 
-        // Task Constructor
+        //Task Constructor
         Task(std::string thingsToDo, std::string dueDate, std::string priority)
         {
             m_thingsToDo = thingsToDo;
@@ -49,6 +55,10 @@ class Task {
         std::string thingsToDoItem()
         {
             return m_thingsToDo;        
+        }
+
+        int getOverallPriority() {
+            return m_overallPriority;
         }
 
         // ADD OVERALL PRIORITY FUNCTION
