@@ -1,4 +1,6 @@
 #include <iostream>
+#include "tasks\TaskList.hxx"
+#include "tasks\Task.hxx"
 using namespace std;
 
 int main() {
@@ -16,26 +18,63 @@ int main() {
     //Menu selection
     char choice;
     cin >> choice;
-    while(choice != 'c' && choice != 't' && choice != 'e' && choice != 'g' && choice != 'q') {
+    while(tolower(choice) != 'c' && tolower(choice) != 't' && tolower(choice) != 'e' && tolower(choice) != 'g' && tolower(choice) != 'q') {
         cout << "Invalid menu option. Please enter a menu option from the list" << endl;
     }
 
-    while(choice != 'q') {
+    TaskList tasks = TaskList();
+
+    while(tolower(choice) != 'q') {
         //Log-in to Canvas
+        if(tolower(choice) == 'c') {
+            cout << "Canvas integration is still in development" << endl;
+        }
 
         //Fetch Canvas events and tasks
 
         //Manually add tasks
+        if(tolower(choice) == 't') {
+            string taskName, taskDate, taskPriority;
+            cout << "Enter the name of the task: " << endl;
+            getline(cin, taskName);
+            cout << "Enter the due date of the task (format: \"MM-DD-YYYY\")" << endl;
+            getline(cin, taskDate);
+            cout << "Enter the priority for the task (\"high\", \"medium\", or \"low\")" << endl;
+            tasks.addTask(Task(taskName, taskDate, taskPriority));
+        }
 
         //Manually add events
+        if(tolower(choice) == 'e') {
+            cout << "Events are not yet supported" << endl;
+        }
 
         //Miscellaneous schedule constraints
-
-        //Sort tasks
 
         //Partition into days
 
         //Display tasks
+        if(tolower(choice) == 'g') {
+            cout << "Prioritized tasks" << endl;
+
+            int i = 1;
+            while(!tasks.isEmpty()) {
+                cout << "Task " << i << ": " << tasks.nextTask().thingsToDoItem() << endl; 
+                i = i + 1;
+            }
+        }
+
+        //Re-display menu and prompt
+        cout << "Main menu:" << endl;
+        cout << "C - Authenticate with Canvas" << endl;
+        cout << "T - Manually add Task" << endl;
+        cout << "E - Manually add Event" << endl;
+        cout << "G - Generate my weekly schedule!" << endl;
+        cout << "Q - Quit";
+
+        cin >> choice;
+        while(tolower(choice) != 'c' && tolower(choice) != 't' && tolower(choice) != 'e' && tolower(choice) != 'g' && tolower(choice) != 'q') {
+            cout << "Invalid menu option. Please enter a menu option from the list" << endl;
+        }
     }
 
     cout << "Quitting [Software Name]" << endl;

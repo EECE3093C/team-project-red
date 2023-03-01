@@ -57,9 +57,5 @@ class Task {
             return m_thingsToDo;        
         }
 
-        int getOverallPriority() {
-            return m_overallPriority;
-        }
-
         // ADD OVERALL PRIORITY FUNCTION
 };

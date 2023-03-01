@@ -13,6 +13,14 @@ class TaskList {
             taskQueue = vector<Task>();
         }
 
+        int numTasks() {
+            return taskQueue.size();
+        }
+
+        bool isEmpty() {
+            return taskQueue.size() == 0;
+        }
+
         void addTask(Task task) {
             //Push new task onto back of vector
             taskQueue.push_back(Task());
@@ -21,7 +29,7 @@ class TaskList {
             int insertPos = taskQueue.size() - 1;
             int parent = (insertPos - 1)/2;
 
-            while(parent >= 0 && taskQueue.at(parent).getOverallPriority() < task.getOverallPriority()) {
+            while(parent >= 0 && taskQueue.at(parent).overallPriority() < task.overallPriority()) {
                 taskQueue.at(insertPos) = taskQueue.at(parent);
                 insertPos = parent;
                 parent = (insertPos - 1)/2;
