@@ -128,7 +128,7 @@ class Task {
 
             // Split the input date into month, day, year
             // YYYY-Month-Day -- input of user for now 
-            // 2023-March-01 -- CHANGE TO March-01-2023
+            // 2023-March-01 -- CHANGE TO 03-01-2023
             int k = 0;
             std::string inputMonth;
             int inputDay;
