@@ -55,7 +55,7 @@ class Task {
         }
 
         // Method to return overall priority based on due date and priority given by user
-        int overallPriority(std::string dueDate, std::string priority)
+        int overallPriority()
         {
             // Integer 1 - 10 that ranks the priority of the task, 1 being highest and 10 being lowest
             int overallPriority = 0;
@@ -70,11 +70,11 @@ class Task {
                                             "October", "November", "December"};
             
             // Convert the priority string into number format
-            if (priority == "High" || priority == "high")
+            if (m_priority == "High" || m_priority == "high")
             {
                 priorityInt = 3;
             }
-            else if (priority == "Medium" || priority == "medium")
+            else if (m_priority == "Medium" || m_priority == "medium")
             {
                 priorityInt = 2;
             }
@@ -136,12 +136,12 @@ class Task {
             char inputSeparator = '-';
             int inputCount = 0;
 
-            while (dueDate[k] != '\0')
+            while (m_dueDate[k] != '\0')
             {
-                if (dueDate[k] != inputSeparator) 
+                if (m_dueDate[k] != inputSeparator) 
                 {
                     // Append the char to the temp string
-                    s += dueDate[k]; 
+                    s += m_dueDate[k]; 
                 } 
                 else
                 {
