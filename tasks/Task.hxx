@@ -73,17 +73,14 @@ class Task {
             if (priority == "High" || priority == "high")
             {
                 priorityInt = 3;
-                std::cout << "priorityint " << priorityInt;
             }
             else if (priority == "Medium" || priority == "medium")
             {
                 priorityInt = 2;
-                std::cout << "priorityint " << priorityInt;
             }
             else 
             {
                 priorityInt = 1;
-                std::cout << "priorityint " << priorityInt;
             }
             
             
@@ -91,7 +88,6 @@ class Task {
             time(&curr_time);
             curr_tm = localtime(&curr_time); 
             strftime(date_char, 50, "Today is %B %d, %Y", curr_tm);
-            std::cout << date_char << std::endl;
 
             // Split the current date char into month, day, year
             char separator = ' ';
@@ -117,23 +113,22 @@ class Task {
                     if (count == 3)
                     {
                         currentMonth = s;
-                        std::cout << s << std::endl;
                     }
                     if (count == 4)
                     {
                         s.pop_back();
                         currentDay = stoi(s);
-                        std::cout << s << std::endl;
                     }
                     s.clear();
                 }
                 i++;
             }
             currentYear = stoi(s);
-            std::cout << s << std::endl; 
             s.clear();
 
             // Split the input date into month, day, year
+            // YYYY-Month-Day -- input of user for now 
+            // 2023-March-01 -- CHANGE TO March-01-2023
             int k = 0;
             std::string inputMonth;
             int inputDay;
@@ -154,19 +149,16 @@ class Task {
                     if (inputCount == 1)
                     {
                         inputYear = stoi(s);
-                        std::cout << s << std::endl;
                     }
                     if (inputCount == 2)
                     {
                         inputMonth = s;
-                        std::cout << s << std::endl;
                     }
                     s.clear();
                 }
                 k++;
             }
             inputDay = stoi(s);
-            std::cout << s << std::endl;
 
             // Compare the two dates
             while (overallPriority == 0)
@@ -178,7 +170,6 @@ class Task {
                     if (inputMonth != "December")
                     {
                         overallPriority = 10;
-                        std::cout << "Priority assigned to 10";
                         break;
                     }
                 }
@@ -186,12 +177,10 @@ class Task {
                 {
                     if (inputMonth == currentMonth)
                     {
-                        std::cout << "Months are the same!" << std::endl;
                         // Assign highest priority if it is the current date
                         if (currentDay == inputDay)
                         {
                             overallPriority = 1;
-                            std::cout << "Priority assigned to 1";
                             break;
                         }
                         
@@ -202,19 +191,16 @@ class Task {
                             if (priorityInt == 3)
                             {
                                 overallPriority = 1;
-                                std::cout << "Priority assigned to 1";
                                 break;
                             }
                             if (priorityInt == 2)
                             {
                                 overallPriority = 2;
-                                std::cout << "Priority assigned to 2";
                                 break;
                             }
                             if (priorityInt == 1)
                             {
                                 overallPriority = 3;
-                                std::cout << "Priority assigned to 3";
                                 break;
                             }                   
                         }
@@ -223,19 +209,16 @@ class Task {
                             if (priorityInt == 3)
                             {
                                 overallPriority = 4;
-                                std::cout << "Priority assigned to 4";
                                 break;
                             }
                             if (priorityInt == 2)
                             {
                                 overallPriority = 5;
-                                std::cout << "Priority assigned to 5";
                                 break;
                             }
                             if (priorityInt == 1)
                             {
                                 overallPriority = 6;
-                                std::cout << "Priority assigned to 6";
                                 break;
                             }                   
                         }
@@ -244,19 +227,16 @@ class Task {
                             if (priorityInt == 3)
                             {
                                 overallPriority = 7;
-                                std::cout << "Priority assigned to 7";
                                 break;
                             }
                             if (priorityInt == 2)
                             {
                                 overallPriority = 8;
-                                std::cout << "Priority assigned to 8";
                                 break;
                             }
                             if (priorityInt == 1)
                             {
                                 overallPriority = 9;
-                                std::cout << "Priority assigned to 9";
                                 break;
                             }                   
                         }
@@ -276,7 +256,6 @@ class Task {
                         if (monthDifference > 3)
                         {
                             overallPriority = 10;
-                            std::cout << "Priority assigned to 10";
                             break;
                         }
 
@@ -285,19 +264,16 @@ class Task {
                             if (priorityInt == 3)
                             {
                                 overallPriority = 7;
-                                std::cout << "Priority assigned to 7";
                                 break;
                             }
                             if (priorityInt == 2)
                             {
                                 overallPriority = 8;
-                                std::cout << "Priority assigned to 8";
                                 break;
                             }
                             if (priorityInt == 1)
                             {
                                 overallPriority = 9;
-                                std::cout << "Priority assigned to 9";
                                 break;
                             }                   
                         }
@@ -313,19 +289,16 @@ class Task {
                                         if (priorityInt == 3)
                                         {
                                             overallPriority = 3;
-                                            std::cout << "Priority assigned to 3";
                                             break;
                                         }
                                         if (priorityInt == 2)
                                         {
                                             overallPriority = 4;
-                                            std::cout << "Priority assigned to 4";
                                             break;
                                         }
                                         if (priorityInt == 1)
                                         {
                                             overallPriority = 5;
-                                            std::cout << "Priority assigned to 5";
                                             break;
                                         }                   
                                     }
@@ -334,19 +307,16 @@ class Task {
                                         if (priorityInt == 3)
                                         {
                                             overallPriority = 7;
-                                            std::cout << "Priority assigned to 7";
                                             break;
                                         }
                                         if (priorityInt == 2)
                                         {
                                             overallPriority = 8;
-                                            std::cout << "Priority assigned to 8";
                                             break;
                                         }
                                         if (priorityInt == 1)
                                         {
                                             overallPriority = 9;
-                                            std::cout << "Priority assigned to 9";
                                             break;
                                         }                   
                                     }
@@ -356,19 +326,16 @@ class Task {
                                     if (priorityInt == 3)
                                         {
                                             overallPriority = 7;
-                                            std::cout << "Priority assigned to 7";
                                             break;
                                         }
                                         if (priorityInt == 2)
                                         {
                                             overallPriority = 8;
-                                            std::cout << "Priority assigned to 8";
                                             break;
                                         }
                                         if (priorityInt == 1)
                                         {
                                             overallPriority = 9;
-                                            std::cout << "Priority assigned to 9";
                                             break;
                                         }  
                                 }
