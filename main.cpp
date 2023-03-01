@@ -37,7 +37,7 @@ int main() {
             string taskName, taskDate, taskPriority;
             cout << "Enter the name of the task: " << endl;
             getline(cin, taskName);
-            cout << "Enter the due date of the task (format: \"MM-DD-YYYY\")" << endl;
+            cout << "Enter the due date of the task (format: \"YYYY-MMMMM-DD\")" << endl;
             getline(cin, taskDate);
             cout << "Enter the priority for the task (\"high\", \"medium\", or \"low\")" << endl;
             tasks.addTask(Task(taskName, taskDate, taskPriority));
