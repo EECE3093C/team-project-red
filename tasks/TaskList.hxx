@@ -27,12 +27,23 @@ class TaskList {
 
             //Min Heap Priority Queue Enqueue algorithm
             int insertPos = taskQueue.size() - 1;
-            int parent = (insertPos - 1)/2;
+
+            int parent;
+            if(insertPos == 0) {
+                parent = -1;
+            } else {
+                parent = (insertPos - 1)/2;
+            }
 
             while(parent >= 0 && taskQueue.at(parent).overallPriority() > task.overallPriority()) {
                 taskQueue.at(insertPos) = taskQueue.at(parent);
                 insertPos = parent;
-                parent = (insertPos - 1)/2;
+
+                if(insertPos == 0) {
+                    parent = -1;
+                } else {
+                    parent = (insertPos - 1)/2;
+                }
             }
             taskQueue.at(insertPos) = task;
 
