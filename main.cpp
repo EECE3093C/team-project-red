@@ -1,6 +1,5 @@
 #include <iostream>
 #include "tasks\TaskList.hxx"
-#include "tasks\Task.hxx"
 using namespace std;
 
 int main() {
@@ -13,7 +12,7 @@ int main() {
     cout << "T - Manually add Task" << endl;
     cout << "E - Manually add Event" << endl;
     cout << "G - Generate my weekly schedule!" << endl;
-    cout << "Q - Quit";
+    cout << "Q - Quit" << endl;
 
     //Menu selection
     char choice;
@@ -36,10 +35,12 @@ int main() {
         if(tolower(choice) == 't') {
             string taskName, taskDate, taskPriority;
             cout << "Enter the name of the task: " << endl;
+            cin.ignore();
             getline(cin, taskName);
             cout << "Enter the due date of the task (format: \"YYYY-MMMMM-DD\")" << endl;
             getline(cin, taskDate);
             cout << "Enter the priority for the task (\"high\", \"medium\", or \"low\")" << endl;
+            getline(cin, taskPriority);
             tasks.addTask(Task(taskName, taskDate, taskPriority));
         }
 
@@ -69,7 +70,7 @@ int main() {
         cout << "T - Manually add Task" << endl;
         cout << "E - Manually add Event" << endl;
         cout << "G - Generate my weekly schedule!" << endl;
-        cout << "Q - Quit";
+        cout << "Q - Quit" << endl;
 
         cin >> choice;
         while(tolower(choice) != 'c' && tolower(choice) != 't' && tolower(choice) != 'e' && tolower(choice) != 'g' && tolower(choice) != 'q') {
