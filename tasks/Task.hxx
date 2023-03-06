@@ -4,6 +4,9 @@
 #include <ctime>
 #include <cstring>
 #include <algorithm>
+#include <map>
+#include <list>
+#include <iterator>
 
 
 // THINGS TO ADD:
@@ -46,12 +49,232 @@ class Task {
             m_thingsToDo = thingsToDo;
             m_dueDate = dueDate;
             m_priority = priority;
+            
+            // Check that the due date is valid
+            bool validDueDate = checkValidDueDate();
+
+            if (validDueDate == false)
+            {
+                std::cout << "Due date is invalid.";
+            }
         }
 
         // Method to return things to do item
         std::string thingsToDoItem()
         {
             return m_thingsToDo;        
+        }
+
+        // Helper function to take the input month and convert it to an int
+        int getMonthNumber (std::string month)
+        {
+            std::map <std::string, int> monthList
+            {
+                {"January", 1},
+                {"February", 2},
+                {"March", 3},
+                {"April", 4},
+                {"May", 5},
+                {"June", 6},
+                {"July", 7},
+                {"August", 8},
+                {"September", 9},
+                {"October", 10},
+                {"November", 11},
+                {"December", 12}
+            };
+            
+            const auto iter = monthList.find(month);
+            if (iter != monthList.cend())
+            {
+                return iter->second;
+            }
+            return -1;
+        }
+
+        // Helper function to get the current date
+        std::list<int> getCurrentDate()
+        {
+            // Calculate the current date
+            time_t curr_time;
+            tm * curr_tm;
+            char date_char[100];
+            char separator = ' ';
+            std::string s;
+            int i = 0;
+            int currentYear;
+            int count = 0;
+            std::string currentMonth;
+            int currentDay;
+
+            std::list <int> currentDate;
+
+            time(&curr_time);
+            curr_tm = localtime(&curr_time); 
+            strftime(date_char, 50, "Today is %B %d, %Y", curr_tm);
+
+            // Split the current date char into the year
+            std::string date_string = date_char;
+
+            while (date_string[i] != '\0')
+            {
+                if (date_string[i] != separator) 
+                {
+                    // Append the char to the temp string
+                    s += date_string[i]; 
+                } 
+                else 
+                {
+                    count++;
+                    if (count == 3)
+                    {
+                        currentMonth = s;
+                        // currentDate.push_back(currentMonthNum);
+                    }
+                    if (count == 4)
+                    {
+                        s.pop_back();
+                        currentDay = stoi(s);
+                        // currentDate.push_back(currentDay);
+                    }
+                    s.clear();
+                }
+                i++;
+            }
+            currentYear = stoi(s);
+            currentDate.push_back(currentYear);
+            int currentMonthNum = getMonthNumber(currentMonth);
+            currentDate.assign(1, currentYear);
+            currentDate.push_front(currentDay);
+            currentDate.push_front(currentMonthNum);
+            s.clear();
+  
+            for (auto const &i: currentDate) {
+                std::cout << i << std::endl;
+            }
+
+            return currentDate;
+        }
+
+        // Method to check that a due date is not in the past and is 
+        // formatted correctly
+        // FORMATTING: MM-DD-YYYY
+        bool checkValidDueDate ()
+        {
+            int k = 0;
+            std::string s;
+            int inputMonth;
+            int inputDay;
+            int inputYear;
+            char inputSeparator = '-';
+            int inputCount = 0;
+            bool valid = true;
+
+            while (m_dueDate[k] != '\0')
+            {
+                if (m_dueDate[k] != inputSeparator) 
+                {
+                    // Append the char to the temp string
+                    s += m_dueDate[k]; 
+                } 
+                else
+                {
+                    inputCount++;
+                    if (inputCount == 1)
+                    {
+                        inputMonth = stoi(s);
+                    }
+                    if (inputCount == 2)
+                    {
+                        inputDay = stoi(s);
+                    }
+                    s.clear();
+                }
+                k++;
+            }
+            inputYear = stoi(s);
+
+            // Calculate the current date
+            // getCurrentDate();
+
+
+            time_t curr_time;
+            tm * curr_tm;
+            char date_char[100];
+            char separator = ' ';
+            int i = 0;
+            int currentYear;
+            int count = 0;
+            std::string currentMonth;
+            int currentDay;
+
+            time(&curr_time);
+            curr_tm = localtime(&curr_time); 
+            strftime(date_char, 50, "Today is %B %d, %Y", curr_tm);
+
+            // Split the current date char into the year
+            std::string date_string = date_char;
+
+            while (date_string[i] != '\0')
+            {
+                if (date_string[i] != separator) 
+                {
+                    // Append the char to the temp string
+                    s += date_string[i]; 
+                } 
+                else 
+                {
+                    count++;
+                    if (count == 3)
+                    {
+                        currentMonth = s;
+                    }
+                    if (count == 4)
+                    {
+                        s.pop_back();
+                        currentDay = stoi(s);
+                    }
+                    s.clear();
+                }
+                i++;
+            }
+            currentYear = stoi(s);
+            s.clear();
+
+            int currentMonthNum = getMonthNumber(currentMonth);
+
+            // Check that the month is between 1 and 12,
+            // the day is between 1 and 31 (checks specific months below if here passes),
+            // the year is not before the current year,
+            // the month is not before the current month, 
+            // and the day is not before the current day
+            if ((inputMonth < 1 || inputMonth > 12) || (inputDay < 1 || inputDay > 31) || (inputYear < currentYear) || 
+                    (inputMonth < currentMonthNum) || (inputDay < currentDay))
+            {
+                valid = false;
+            }
+
+            // Check that the input days is valid based on the specific month
+            // April, June, September, November - 30 days
+            else if (inputMonth == 4 || inputMonth == 6 || inputMonth == 9 || inputMonth == 11)
+            {
+                if (inputDay > 30)
+                {
+                    valid = false;
+                }
+            }
+            // February - 28 days
+            else 
+            {
+                if (inputMonth == 28)
+                {
+                    if (inputDay > 28)
+                    {
+                        valid = false;
+                    }
+                }
+            }
+            return valid;
         }
 
         // Method to return overall priority based on due date and priority given by user
