@@ -8,13 +8,6 @@
 #include <list>
 #include <iterator>
 
-
-// THINGS TO ADD:
-    // 1. Method that orders the things on the list based on priority and date 
-            // will need function that calculates current date and time
-            // need to discuss how we want to evaluate hierarchy between priority and date
-    // 2. Method to output things to do List in a text file along with calendar, etc.
-    // 3. Need to incorporate CANVAS tasks as well, but that is seperate from here
 class Task {
     protected:
 
@@ -141,6 +134,7 @@ class Task {
                 }
                 i++;
             }
+
             currentYear = stoi(s);
             currentDate.push_back(currentYear);
             int currentMonthNum = getMonthNumber(currentMonth);
@@ -149,17 +143,11 @@ class Task {
             currentDate.push_front(currentMonthNum);
             s.clear();
   
-            for (auto const &i: currentDate) {
-                std::cout << i << std::endl;
-            }
-
             return currentDate;
         }
 
-        // Method to check that a due date is not in the past and is 
-        // formatted correctly
-        // FORMATTING: MM-DD-YYYY
-        bool checkValidDueDate ()
+        // Helper function to split the input date into a vector
+        std::list<int> getInputDate()
         {
             int k = 0;
             std::string s;
@@ -168,7 +156,7 @@ class Task {
             int inputYear;
             char inputSeparator = '-';
             int inputCount = 0;
-            bool valid = true;
+            std::list<int> inputDate;
 
             while (m_dueDate[k] != '\0')
             {
@@ -194,54 +182,43 @@ class Task {
             }
             inputYear = stoi(s);
 
-            // Calculate the current date
-            // getCurrentDate();
-
-
-            time_t curr_time;
-            tm * curr_tm;
-            char date_char[100];
-            char separator = ' ';
-            int i = 0;
-            int currentYear;
-            int count = 0;
-            std::string currentMonth;
-            int currentDay;
-
-            time(&curr_time);
-            curr_tm = localtime(&curr_time); 
-            strftime(date_char, 50, "Today is %B %d, %Y", curr_tm);
-
-            // Split the current date char into the year
-            std::string date_string = date_char;
-
-            while (date_string[i] != '\0')
-            {
-                if (date_string[i] != separator) 
-                {
-                    // Append the char to the temp string
-                    s += date_string[i]; 
-                } 
-                else 
-                {
-                    count++;
-                    if (count == 3)
-                    {
-                        currentMonth = s;
-                    }
-                    if (count == 4)
-                    {
-                        s.pop_back();
-                        currentDay = stoi(s);
-                    }
-                    s.clear();
-                }
-                i++;
-            }
-            currentYear = stoi(s);
+            inputDate.push_back(inputYear);
+            inputDate.assign(1, inputYear);
+            inputDate.push_front(inputDay);
+            inputDate.push_front(inputMonth);
             s.clear();
 
-            int currentMonthNum = getMonthNumber(currentMonth);
+            return inputDate;
+        }
+
+        // Method to check that a due date is not in the past and is 
+        // formatted correctly
+        // FORMATTING: MM-DD-YYYY
+        bool checkValidDueDate ()
+        {
+            // Return bool for if date is valid
+            bool valid = true;
+
+
+            // Calculate the input date
+            int inputMonth, inputDay, inputYear;
+            std::list<int> inputDate = getInputDate();
+            inputMonth = inputDate.front();
+            inputYear =  inputDate.back();
+            std::list<int>::iterator input = inputDate.begin();
+            std::advance(input, 1);
+            inputDay = *input;
+
+
+            // Calculate the current date
+            int currentYear, currentMonth, currentDay;
+            std::list <int> currentDate = getCurrentDate();
+            currentMonth = currentDate.front();
+            currentYear = currentDate.back();
+            std::list<int>::iterator it = currentDate.begin();
+            std::advance(it, 1);
+            currentDay = *it;
+
 
             // Check that the month is between 1 and 12,
             // the day is between 1 and 31 (checks specific months below if here passes),
@@ -249,10 +226,11 @@ class Task {
             // the month is not before the current month, 
             // and the day is not before the current day
             if ((inputMonth < 1 || inputMonth > 12) || (inputDay < 1 || inputDay > 31) || (inputYear < currentYear) || 
-                    (inputMonth < currentMonthNum) || (inputDay < currentDay))
+                    (inputMonth < currentMonth) || (inputDay < currentDay))
             {
                 valid = false;
             }
+
 
             // Check that the input days is valid based on the specific month
             // April, June, September, November - 30 days
@@ -274,7 +252,9 @@ class Task {
                     }
                 }
             }
+
             return valid;
+
         }
 
         // Method to return overall priority based on due date and priority given by user
@@ -285,12 +265,10 @@ class Task {
 
             // Method locals
             int priorityInt;
-            time_t curr_time;
-            tm * curr_tm;
-            char date_char[100];
             std::vector <std::string> months {"January", "February", "March", "April",
                                             "May", "June", "July", "August", "September", 
                                             "October", "November", "December"};
+            
             
             // Convert the priority string into number format
             if (m_priority == "High" || m_priority == "high")
@@ -304,84 +282,28 @@ class Task {
             else 
             {
                 priorityInt = 1;
-            }
+            }            
             
-            
+
             // Calculate the current date
-            time(&curr_time);
-            curr_tm = localtime(&curr_time); 
-            strftime(date_char, 50, "Today is %B %d, %Y", curr_tm);
+            int currentYear, currentMonth, currentDay;
+            std::list <int> currentDate = getCurrentDate();
+            currentMonth = currentDate.front();
+            currentYear = currentDate.back();
+            std::list<int>::iterator it = currentDate.begin();
+            std::advance(it, 1);
+            currentDay = *it;
 
-            // Split the current date char into month, day, year
-            char separator = ' ';
-            int i = 0;
-            int count = 0;
-            std::string s;
-            std::string currentMonth;
-            int currentDay;
-            int currentYear;
 
-            std::string date_string = date_char;
+            // Calculate the input date
+            int inputMonth, inputDay, inputYear;
+            std::list<int> inputDate = getInputDate();
+            inputMonth = inputDate.front();
+            inputYear =  inputDate.back();
+            std::list<int>::iterator input = inputDate.begin();
+            std::advance(input, 1);
+            inputDay = *input;
 
-            while (date_string[i] != '\0')
-            {
-                if (date_string[i] != separator) 
-                {
-                    // Append the char to the temp string
-                    s += date_string[i]; 
-                } 
-                else 
-                {
-                    count++;
-                    if (count == 3)
-                    {
-                        currentMonth = s;
-                    }
-                    if (count == 4)
-                    {
-                        s.pop_back();
-                        currentDay = stoi(s);
-                    }
-                    s.clear();
-                }
-                i++;
-            }
-            currentYear = stoi(s);
-            s.clear();
-
-            // Split the input date into month, day, year
-            // YYYY-Month-Day -- input of user for now 
-            // 2023-March-01 -- CHANGE TO 03-01-2023
-            int k = 0;
-            std::string inputMonth;
-            int inputDay;
-            int inputYear;
-            char inputSeparator = '-';
-            int inputCount = 0;
-
-            while (m_dueDate[k] != '\0')
-            {
-                if (m_dueDate[k] != inputSeparator) 
-                {
-                    // Append the char to the temp string
-                    s += m_dueDate[k]; 
-                } 
-                else
-                {
-                    inputCount++;
-                    if (inputCount == 1)
-                    {
-                        inputYear = stoi(s);
-                    }
-                    if (inputCount == 2)
-                    {
-                        inputMonth = s;
-                    }
-                    s.clear();
-                }
-                k++;
-            }
-            inputDay = stoi(s);
 
             // Compare the two dates
             while (overallPriority == 0)
@@ -390,7 +312,7 @@ class Task {
                 // the month is not December    
                 if (inputYear > currentYear)
                 {
-                    if (inputMonth != "December")
+                    if (inputMonth != 12)
                     {
                         overallPriority = 10;
                         break;
@@ -507,7 +429,8 @@ class Task {
                             {
                                 if (inputDay <= 2)
                                 {
-                                    if (currentMonth == "February")
+                                    // If the month is February, assign it high priority because of less days
+                                    if (currentMonth == 2)
                                     {
                                         if (priorityInt == 3)
                                         {
