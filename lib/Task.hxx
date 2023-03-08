@@ -19,9 +19,9 @@ static std::vector<int> parseDate(std::string dateString) {
     std::string parse;
     std::vector<int> parsedDate;
 
-    std::getline(ss, parse, '/');
+    std::getline(ss, parse, '-');
     parsedDate.push_back(stoi(parse));
-    std::getline(ss, parse, '/');
+    std::getline(ss, parse, '-');
     parsedDate.push_back(stoi(parse));
     std::getline(ss, parse, ' ');
     parsedDate.push_back(stoi(parse));
