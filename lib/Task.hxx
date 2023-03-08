@@ -3,6 +3,7 @@
 #include <vector>
 #include <ctime>
 #include <cstring>
+#include <sstream>
 #include <map>
 #include <list>
 #include <iterator>
@@ -90,10 +91,14 @@ class Task {
             }
         }
 
-        // Method to return things to do item
+        //Getters
         std::string thingsToDoItem()
         {
             return m_thingsToDo;        
+        }
+
+        std::string getDueDate() {
+            return m_dueDate;
         }
 
         // Helper function to take the input month and convert it to an int
@@ -531,5 +536,26 @@ class Task {
                 }
             }
             return overallPriority;
+        }
+
+        //Operator overloads for < and >
+        bool operator<(Task task) {
+            if(overallPriority() < task.overallPriority()) {
+                return true;
+            } else if(overallPriority() > task.overallPriority()) {
+                return false;
+            } else {
+                return date_is_before(getDueDate(), task.getDueDate());
+            }
+        }
+
+        bool operator>(Task task) {
+            if(overallPriority() > task.overallPriority()) {
+                return true;
+            } else if(overallPriority() < task.overallPriority()) {
+                return false;
+            } else {
+                return !date_is_before(getDueDate(), task.getDueDate());
+            }
         }
 };
