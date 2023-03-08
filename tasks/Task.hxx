@@ -241,10 +241,10 @@ class Task {
                     valid = false;
                 }
             }
-            // February - 28 days
+            // February - 28 days -- LEAP YEAR CHECK!
             else 
             {
-                if (inputMonth == 28)
+                if (inputMonth == 2)
                 {
                     if (inputDay > 28)
                     {
@@ -425,7 +425,7 @@ class Task {
                         else
                         {
                             // If the month is only one away, the date needs to be checked to see the difference
-                            if (currentDay >= 26)
+                            if (currentDay >= 26)  // INFINITE LOOP HERE
                             {
                                 if (inputDay <= 2)
                                 {
