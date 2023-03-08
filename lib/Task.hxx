@@ -94,10 +94,14 @@ class Task {
             m_priority = priority;
         }
 
-        // Method to return things to do item
+        //Getters
         std::string thingsToDoItem()
         {
             return m_thingsToDo;        
+        }
+
+        std::string getDueDate() {
+            return m_dueDate;
         }
 
         // Method to return overall priority based on due date and priority given by user
@@ -393,5 +397,26 @@ class Task {
                 }
             }
             return overallPriority;
+        }
+
+        //Operator overloads for < and >
+        bool operator<(Task task) {
+            if(overallPriority() < task.overallPriority()) {
+                return true;
+            } else if(overallPriority() > task.overallPriority()) {
+                return false;
+            } else {
+                return date_is_before(getDueDate(), task.getDueDate());
+            }
+        }
+
+        bool operator>(Task task) {
+            if(overallPriority() > task.overallPriority()) {
+                return true;
+            } else if(overallPriority() < task.overallPriority()) {
+                return false;
+            } else {
+                return !date_is_before(getDueDate(), task.getDueDate());
+            }
         }
 };
