@@ -1,0 +1,11 @@
+- issues with bucket and unsubmitted assignments 
+- create an update call for updating unsubmitted assignments 
+- user can add their own tasks and to do lists
+- figure out how to communicate between C++ and Python 
+  - python runs first once you access loging into the canvas 
+  - how to make the C++ program cause the script to run 
+  - how to communicate data directly back into a C++ object 
+ - dev container (API dev container & normal dev container) 
+  - look at professors GitHub
+  - figure out to work docker seamlessly 
+ 
