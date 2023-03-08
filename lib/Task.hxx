@@ -3,10 +3,48 @@
 #include <vector>
 #include <ctime>
 #include <cstring>
-#include <algorithm>
 #include <map>
 #include <list>
 #include <iterator>
+#include <algorithm>
+
+static std::vector<int> parseDate(std::string dateString) {
+    std::stringstream ss(dateString);
+    std::string parse;
+    std::vector<int> parsedDate;
+
+    std::getline(ss, parse, '-');
+    parsedDate.push_back(stoi(parse));
+    std::getline(ss, parse, '-');
+    parsedDate.push_back(stoi(parse));
+    std::getline(ss, parse, ' ');
+    parsedDate.push_back(stoi(parse));
+    std::getline(ss, parse, ':');
+    parsedDate.push_back(stoi(parse));
+    std::getline(ss, parse);
+    parsedDate.push_back(stoi(parse));
+
+    return parsedDate;
+};
+
+static bool date_is_before(std::string date1, std::string date2) {
+    std::vector<int> d1 = parseDate(date1);
+    std::vector<int> d2 = parseDate(date2);
+
+    //Array to specify the order to compare date elements: year, month, day, hour, minute
+    int comparisonOrder[] = {2, 0, 1, 3, 4};
+    for(int i = 0; i < 5; i++) {
+        if(d1.at(comparisonOrder[i]) < d2.at(comparisonOrder[i])) {
+            //This component of date1 is less than this component in date2, meaning date1 is before date2
+            return true;
+        } else if(d1.at(comparisonOrder[i]) > d2.at(comparisonOrder[i])) {
+            //This component of date1 is greater than this component in date2, meaning date1 is after date2
+            return false;
+        }
+    }
+    //If we reach the end, and all date components are the same, then they are the same date and time
+    return true;
+};
 
 class Task {
     protected:
