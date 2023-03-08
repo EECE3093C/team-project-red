@@ -1,9 +1,10 @@
 #include <iostream>
-#include "lib\TaskList.hxx"
+#include "lib/TaskList.hxx"
 using namespace std;
 
 int main() {
     //Declare data structures to hold events and tasks
+    TaskList tasks = TaskList();
 
     //Welcome message and options
     cout << "Welcome to [Software Name]!" << endl;
@@ -20,8 +21,6 @@ int main() {
     while(tolower(choice) != 'c' && tolower(choice) != 't' && tolower(choice) != 'e' && tolower(choice) != 'g' && tolower(choice) != 'q') {
         cout << "Invalid menu option. Please enter a menu option from the list" << endl;
     }
-
-    TaskList tasks = TaskList();
 
     while(tolower(choice) != 'q') {
         //Log-in to Canvas
