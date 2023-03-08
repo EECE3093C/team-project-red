@@ -3,6 +3,7 @@
 #include <vector>
 #include <ctime>
 #include <cstring>
+#include <sstream>
 #include <algorithm>
 
 
@@ -12,6 +13,45 @@
             // need to discuss how we want to evaluate hierarchy between priority and date
     // 2. Method to output things to do List in a text file along with calendar, etc.
     // 3. Need to incorporate CANVAS tasks as well, but that is seperate from here
+
+static std::vector<int> parseDate(std::string dateString) {
+    std::stringstream ss(dateString);
+    std::string parse;
+    std::vector<int> parsedDate;
+
+    std::getline(ss, parse, '/');
+    parsedDate.push_back(stoi(parse));
+    std::getline(ss, parse, '/');
+    parsedDate.push_back(stoi(parse));
+    std::getline(ss, parse, ' ');
+    parsedDate.push_back(stoi(parse));
+    std::getline(ss, parse, ':');
+    parsedDate.push_back(stoi(parse));
+    std::getline(ss, parse);
+    parsedDate.push_back(stoi(parse));
+
+    return parsedDate;
+};
+
+static bool date_is_before(std::string date1, std::string date2) {
+    std::vector<int> d1 = parseDate(date1);
+    std::vector<int> d2 = parseDate(date2);
+
+    //Array to specify the order to compare date elements: year, month, day, hour, minute
+    int comparisonOrder[] = {2, 0, 1, 3, 4};
+    for(int i = 0; i < 5; i++) {
+        if(d1.at(comparisonOrder[i]) < d2.at(comparisonOrder[i])) {
+            //This component of date1 is less than this component in date2, meaning date1 is before date2
+            return true;
+        } else if(d1.at(comparisonOrder[i]) > d2.at(comparisonOrder[i])) {
+            //This component of date1 is greater than this component in date2, meaning date1 is after date2
+            return false;
+        }
+    }
+    //If we reach the end, and all date components are the same, then they are the same date and time
+    return true;
+};
+
 class Task {
     protected:
 
@@ -54,10 +94,14 @@ class Task {
             m_priority = priority;
         }
 
-        // Method to return things to do item
+        //Getters
         std::string thingsToDoItem()
         {
             return m_thingsToDo;        
+        }
+
+        std::string getDueDate() {
+            return m_dueDate;
         }
 
         // Method to return overall priority based on due date and priority given by user
@@ -353,5 +397,26 @@ class Task {
                 }
             }
             return overallPriority;
+        }
+
+        //Operator overloads for < and >
+        bool operator<(Task task) {
+            if(overallPriority() < task.overallPriority()) {
+                return true;
+            } else if(overallPriority() > task.overallPriority()) {
+                return false;
+            } else {
+                return date_is_before(getDueDate(), task.getDueDate());
+            }
+        }
+
+        bool operator>(Task task) {
+            if(overallPriority() > task.overallPriority()) {
+                return true;
+            } else if(overallPriority() < task.overallPriority()) {
+                return false;
+            } else {
+                return !date_is_before(getDueDate(), task.getDueDate());
+            }
         }
 };
