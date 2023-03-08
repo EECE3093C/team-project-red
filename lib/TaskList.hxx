@@ -35,7 +35,7 @@ class TaskList {
                 parent = (insertPos - 1)/2;
             }
 
-            while(parent >= 0 && taskQueue.at(parent).overallPriority() > task.overallPriority()) {
+            while(parent >= 0 && taskQueue.at(parent) > task) {
                 taskQueue.at(insertPos) = taskQueue.at(parent);
                 insertPos = parent;
 
@@ -64,7 +64,7 @@ class TaskList {
                     if(RKey == taskQueue.size()) {
                         //Left child is last element in heap - highest priority child by default
                         minKey = LKey;
-                    } else if(taskQueue.at(LKey).overallPriority() < taskQueue.at(RKey).overallPriority()) {
+                    } else if(taskQueue.at(LKey) < taskQueue.at(RKey)) {
                         minKey = LKey;
                     } else {
                         minKey = RKey;
