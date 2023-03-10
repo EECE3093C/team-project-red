@@ -1,5 +1,5 @@
 #include <iostream>
-#include "lib/TaskList.hxx"
+#include "../lib/TaskList.hxx"
 using namespace std;
 
 int main() {
