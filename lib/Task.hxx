@@ -91,6 +91,9 @@ class Task {
             }
         }
 
+        // Default Constructor
+        Task() {}
+
         //Getters
         std::string thingsToDoItem()
         {
@@ -284,12 +287,22 @@ class Task {
                     valid = false;
                 }
             }
-            // February - 28 days -- LEAP YEAR CHECK!
+           
+            // February - 28 days and leap year
             else 
             {
                 if (inputMonth == 2)
                 {
-                    if (inputDay > 28)
+                    // Leap year
+                    if ((inputYear % 4 == 0 && inputYear % 100 != 0) || inputYear % 400 == 0)
+                    {
+                        if (inputDay > 29)
+                        {
+                            valid = false;
+                        }
+                    }
+                    // Not a leap year
+                    else if (inputDay > 28)
                     {
                         valid = false;
                     }
@@ -308,10 +321,7 @@ class Task {
 
             // Method locals
             int priorityInt;
-            std::vector <std::string> months {"January", "February", "March", "April",
-                                            "May", "June", "July", "August", "September", 
-                                            "October", "November", "December"};
-            
+
             
             // Convert the priority string into number format
             if (m_priority == "High" || m_priority == "high")
@@ -433,13 +443,7 @@ class Task {
                     // and assign priority
                     else 
                     {
-                        std::vector<std::string>::iterator inputItr = std::find(months.begin(), months.end(), inputMonth);
-                        std::vector<std::string>::iterator currentItr = std::find(months.begin(), months.end(), currentMonth);
-
-                        int inputMonthNum = std::distance(months.begin(), inputItr);
-                        int currentMonthNum = std::distance(months.begin(), currentItr);
-
-                        int monthDifference = inputMonthNum - currentMonthNum;
+                        int monthDifference = inputMonth - currentMonth;
 
                         if (monthDifference > 3)
                         {
@@ -530,7 +534,24 @@ class Task {
                                 }
 
                             }
-
+                            else 
+                            {
+                                if (priorityInt == 3)
+                                {
+                                    overallPriority = 7;
+                                    break;
+                                }
+                                if (priorityInt == 2)
+                                {
+                                    overallPriority = 8;
+                                    break;
+                                }
+                                if (priorityInt == 1)
+                                {
+                                    overallPriority = 9;
+                                    break;
+                                }  
+                            }
                         }
                     }
                 }
