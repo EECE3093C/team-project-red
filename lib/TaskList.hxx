@@ -2,15 +2,14 @@
 #include <iostream>
 #include <vector>
 #include "Task.hxx"
-using namespace std;
 
 class TaskList {
     protected:
-        vector<Task> taskQueue;
+        std::vector<Task> taskQueue;
   
     public:
         TaskList() {
-            taskQueue = vector<Task>();
+            taskQueue = std::vector<Task>();
         }
 
         int numTasks() {
