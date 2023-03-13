@@ -1,51 +1,50 @@
 #include <iostream>
 #include "../lib/TaskList.hxx"
-using namespace std;
 
 int main() {
     //Declare data structures to hold events and tasks
     TaskList tasks = TaskList();
 
     //Welcome message and options
-    cout << "Welcome to [Software Name]!" << endl;
-    cout << "Main menu:" << endl;
-    cout << "C - Authenticate with Canvas" << endl;
-    cout << "T - Manually add Task" << endl;
-    cout << "E - Manually add Event" << endl;
-    cout << "G - Generate my weekly schedule!" << endl;
-    cout << "Q - Quit" << endl;
+    std::cout << "Welcome to [Software Name]!" << std::endl;
+    std::cout << "Main menu:" << std::endl;
+    std::cout << "C - Authenticate with Canvas" << std::endl;
+    std::cout << "T - Manually add Task" << std::endl;
+    std::cout << "E - Manually add Event" << std::endl;
+    std::cout << "G - Generate my weekly schedule!" << std::endl;
+    std::cout << "Q - Quit" << std::endl;
 
     //Menu selection
     char choice;
-    cin >> choice;
+    std::cin >> choice;
     while(tolower(choice) != 'c' && tolower(choice) != 't' && tolower(choice) != 'e' && tolower(choice) != 'g' && tolower(choice) != 'q') {
-        cout << "Invalid menu option. Please enter a menu option from the list" << endl;
+        std::cout << "Invalid menu option. Please enter a menu option from the list" << std::endl;
     }
 
     while(tolower(choice) != 'q') {
         //Log-in to Canvas
         if(tolower(choice) == 'c') {
-            cout << "Canvas integration is still in development" << endl;
+            std::cout << "Canvas integration is still in development" << std::endl;
         }
 
         //Fetch Canvas events and tasks
 
         //Manually add tasks
         if(tolower(choice) == 't') {
-            string taskName, taskDate, taskPriority;
-            cout << "Enter the name of the task: " << endl;
-            cin.ignore();
-            getline(cin, taskName);
-            cout << "Enter the due date of the task (format: \"YYYY-MMMMM-DD\")" << endl;
-            getline(cin, taskDate);
-            cout << "Enter the priority for the task (\"high\", \"medium\", or \"low\")" << endl;
-            getline(cin, taskPriority);
+            std::string taskName, taskDate, taskPriority;
+            std::cout << "Enter the name of the task: " << std::endl;
+            std::cin.ignore();
+            std::getline(std::cin, taskName);
+            std::cout << "Enter the due date of the task (format: \"YYYY-MMMMM-DD\")" << std::endl;
+            std::getline(std::cin, taskDate);
+            std::cout << "Enter the priority for the task (\"high\", \"medium\", or \"low\")" << std::endl;
+            std::getline(std::cin, taskPriority);
             tasks.addTask(Task(taskName, taskDate, taskPriority));
         }
 
         //Manually add events
         if(tolower(choice) == 'e') {
-            cout << "Events are not yet supported" << endl;
+            std::cout << "Events are not yet supported" << std::endl;
         }
 
         //Miscellaneous schedule constraints
@@ -54,29 +53,29 @@ int main() {
 
         //Display tasks
         if(tolower(choice) == 'g') {
-            cout << "Prioritized tasks" << endl;
+            std::cout << "Prioritized tasks" << std::endl;
 
             int i = 1;
             while(!tasks.isEmpty()) {
-                cout << "Task " << i << ": " << tasks.nextTask().thingsToDoItem() << endl; 
+                std::cout << "Task " << i << ": " << tasks.nextTask().thingsToDoItem() << std::endl; 
                 i = i + 1;
             }
         }
 
         //Re-display menu and prompt
-        cout << "Main menu:" << endl;
-        cout << "C - Authenticate with Canvas" << endl;
-        cout << "T - Manually add Task" << endl;
-        cout << "E - Manually add Event" << endl;
-        cout << "G - Generate my weekly schedule!" << endl;
-        cout << "Q - Quit" << endl;
+        std::cout << "Main menu:" << std::endl;
+        std::cout << "C - Authenticate with Canvas" << std::endl;
+        std::cout << "T - Manually add Task" << std::endl;
+        std::cout << "E - Manually add Event" << std::endl;
+        std::cout << "G - Generate my weekly schedule!" << std::endl;
+        std::cout << "Q - Quit" << std::endl;
 
-        cin >> choice;
+        std::cin >> choice;
         while(tolower(choice) != 'c' && tolower(choice) != 't' && tolower(choice) != 'e' && tolower(choice) != 'g' && tolower(choice) != 'q') {
-            cout << "Invalid menu option. Please enter a menu option from the list" << endl;
+            std::cout << "Invalid menu option. Please enter a menu option from the list" << std::endl;
         }
     }
 
-    cout << "Quitting [Software Name]" << endl;
+    std::cout << "Quitting [Software Name]" << std::endl;
     return 0;
 }
