@@ -7,62 +7,38 @@
 
 class Task {
     protected:
-    ///* Member Variables for the Class *///
-        
-        // String for extra things to do
-        std::string m_thingsToDo;
-        
-        // String for item date
+        ///* Member Variables for the Class *///
+        std::string m_taskName;
         std::string m_dueDate;
+        std::string m_priority;
   
         // Priority Enum for item priority -- not sure how to use this so doing string for right now
-        enum m_priority
-        {
+        /*enum m_priority {
             high = 1,
             medium = 2,
             low = 3
-        };
-        std::string m_priority;
-
-        // Combined overall Priority based on 
-        int m_overallPriority;
-
-        // Vector of Items in ToDo List
-        std::vector<std::string> toDoList;
-    
+        };*/
     public:
-        // Default Constructor
+        //Default Constructor
         Task() {}
 
-        //Task Constructor
-        Task(std::string thingsToDo, std::string dueDate, std::string priority) {
-            m_thingsToDo = thingsToDo;
+        //Primary Constructor
+        Task(std::string taskName, std::string dueDate, std::string priority) {
+            m_taskName = taskName;
             m_dueDate = dueDate;
             m_priority = priority;
-            
-            // Check that the due date is valid
-            bool validDueDate = datestr::checkValidDueDate(dueDate);
-
-            if (validDueDate == false) {
-                std::cout << "Due date is invalid.";
-            }
         }
 
         //Getters
-        std::string thingsToDoItem() {
-            return m_thingsToDo;        
+        std::string getTaskName() {
+            return m_taskName;        
         }
 
         std::string getDueDate() {
             return m_dueDate;
         }
-
-        // Method to check that a due date is not in the past and is 
-        // formatted correctly
-        // FORMATTING: MM-DD-YYYY
         
-
-        // Method to return overall priority based on due date and priority given by user
+        //Method to return overall priority based on due date and priority given by user
         int overallPriority() {
             // Integer 1 - 10 that ranks the priority of the task, 1 being highest and 10 being lowest
             int overallPriority = 0;
