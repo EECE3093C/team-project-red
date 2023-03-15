@@ -6,12 +6,14 @@
 class TaskList {
     protected:
         std::vector<Task> taskQueue;
-  
+
     public:
+        //Constructor
         TaskList() {
             taskQueue = std::vector<Task>();
         }
 
+        //Methods to return useful information about the list
         int numTasks() {
             return taskQueue.size();
         }
@@ -20,6 +22,7 @@ class TaskList {
             return taskQueue.size() == 0;
         }
 
+        //Enqueue and Dequeue functions
         void addTask(Task task) {
             //Push new task onto back of vector
             taskQueue.push_back(Task());
