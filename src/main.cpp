@@ -57,7 +57,7 @@ int main() {
 
             int i = 1;
             while(!tasks.isEmpty()) {
-                std::cout << "Task " << i << ": " << tasks.nextTask().thingsToDoItem() << std::endl; 
+                std::cout << "Task " << i << ": " << tasks.nextTask().getTaskName() << std::endl; 
                 i = i + 1;
             }
         }
