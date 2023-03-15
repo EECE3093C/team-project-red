@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "../lib/TaskList.hxx"
 
 int main() {
@@ -32,13 +33,40 @@ int main() {
         //Manually add tasks
         if(tolower(choice) == 't') {
             std::string taskName, taskDate, taskPriority;
+
+            //Get task name
             std::cout << "Enter the name of the task: " << std::endl;
             std::cin.ignore();
             std::getline(std::cin, taskName);
-            std::cout << "Enter the due date of the task (format: \"MM-DD-YYYY\")" << std::endl;
+
+            //Get due date
+            std::cout << "Enter the due date of the task (format: \"MM-DD-YYYY\" or \"MM-DD-YYYY HH:MM\")" << std::endl;
+            std::cout << "If entered without the time, a time of 11:59 PM will be assumed" << std::endl;
             std::getline(std::cin, taskDate);
+            std::vector<int> vectDate = datestr::parseDate(taskDate);
+            while(vectDate.size() == 1) {
+                //Date was improperly formatted. Re-prompt
+                std::cout << "Date must be formatted as \"MM-DD-YYYY\" or \"MM-DD-YYYY HH:MM\"" << std::endl;
+                std::cout << "Please re-enter the due date: " << std::endl;
+                std::getline(std::cin, taskDate);
+                vectDate = datestr::parseDate(taskDate);
+            }
+
+            //Check if implicit 11:59 PM must be added on to end of date
+            if(vectDate.size() == 3) {
+                taskDate = taskDate + " 23:59";
+            }
+
+            //Get task priority
             std::cout << "Enter the priority for the task (\"high\", \"medium\", or \"low\")" << std::endl;
             std::getline(std::cin, taskPriority);
+            while(taskPriority != "high" && taskPriority != "medium" && taskPriority != "low") {
+                std::cout << "Task priority must be \"high\", \"medium\", or \"low\"" << std::endl;
+                std::cout << "Please re-enter the priority: " << std::endl;
+                std::getline(std::cin, taskPriority);
+            }
+
+            //Create new task
             tasks.addTask(Task(taskName, taskDate, taskPriority));
         }
 

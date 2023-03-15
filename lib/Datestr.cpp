@@ -7,26 +7,75 @@
 #include <map>
 
 namespace datestr {
+
+    /*Function to take a number formatted as a string, and add it to a vector of date components if it will successfully
+    ** convert to a number. Otherwise returns an "error vector" containing a singular -1
+    ** Inputs: A vector of integers, and a string which should contain a number
+    ** Output: The vector with the number added to it, or the error vector {-1}
+    */
+    void addToDateVector(std::vector<int>& dateVect, std::string number) {
+        //Do nothing if it is already an error vector
+        if(dateVect.size() > 0 && dateVect.at(0) != -1) {
+            //Test if string will convert to integer
+            try {
+                dateVect.push_back(stoi(number));
+            } catch(std::exception &err) {
+                dateVect = {-1};
+            }
+        }
+    }
+
+    /* Overloaded version of addToDateVector, which also accepts a reference to a string stream and returns the error
+    ** vector if the string stream is empty
+    ** Inputs: A reference to a vector of integers, a string which should contain a number, and a reference to a string stream
+    ** Output: The vector is updated to either add the number, or the error vector {-1}
+    */
+    void addToDateVector(std::vector<int>& dateVect, std::string number, std::stringstream& ss) {
+        //Do nothing if it is already an error vector
+        if(dateVect.size() > 0 && dateVect.at(0) != -1) {
+            //Check if string stream is empty
+            if(ss.rdbuf()->in_avail() == 0) {
+                dateVect = {-1};
+            } else {
+                //Test if string will convert to integer
+                try {
+                    dateVect.push_back(stoi(number));
+                } catch(std::exception &err) {
+                    dateVect = {-1};
+                }
+            }
+        }
+    }
     
     /*Function to take a date formatted as MM/DD/YYYY and return as a vector
-    ** Input: A date formatted as a string mm/DD/YYYY HH:MM
-    ** Output: A vector containing the components of the date as integers: {m, D, Y, H, M}
+    ** Vector is formatted as {Month, Day, Year}, {Month, Day, Year, Hour, Minute}, or {-1} if stringis not formatted correctly
+    ** Input: A date formatted as a string mm/DD/YYYY or mm/DD/YYYY HH:MM
+    ** Output: A vector containing the components of the date as integers: {m, D, Y}, {m, D, Y, H, M}, or {-1}
+    ** Returns vector containing -1 if string is improperly formatted
     */
     std::vector<int> parseDate(std::string dateString) {
         std::stringstream ss(dateString);
         std::string parse;
         std::vector<int> parsedDate;
 
+        //Get month, day, and year
         std::getline(ss, parse, '-');
-        parsedDate.push_back(stoi(parse));
+        addToDateVector(parsedDate, parse, ss);
         std::getline(ss, parse, '-');
-        parsedDate.push_back(stoi(parse));
+        addToDateVector(parsedDate, parse, ss);
         std::getline(ss, parse, ' ');
-        parsedDate.push_back(stoi(parse));
+        addToDateVector(parsedDate, parse);
+
+        //If the string ends here, then the string was formatted mm/DD/YYYY. Return vector of length 3
+        if(ss.rdbuf()->in_avail() == 0) {
+            return parsedDate;
+        }
+
+        //Otherwise, get hour and minute
         std::getline(ss, parse, ':');
-        parsedDate.push_back(stoi(parse));
+        addToDateVector(parsedDate, parse, ss);
         std::getline(ss, parse);
-        parsedDate.push_back(stoi(parse));
+        addToDateVector(parsedDate, parse);
 
         return parsedDate;
     };
