@@ -35,7 +35,7 @@ int main() {
             std::cout << "Enter the name of the task: " << std::endl;
             std::cin.ignore();
             std::getline(std::cin, taskName);
-            std::cout << "Enter the due date of the task (format: \"YYYY-MMMMM-DD\")" << std::endl;
+            std::cout << "Enter the due date of the task (format: \"MM-DD-YYYY\")" << std::endl;
             std::getline(std::cin, taskDate);
             std::cout << "Enter the priority for the task (\"high\", \"medium\", or \"low\")" << std::endl;
             std::getline(std::cin, taskPriority);
